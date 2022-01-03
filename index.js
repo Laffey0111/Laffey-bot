@@ -7,7 +7,8 @@ require("dotenv").config()
 const client = new Discord.Client({
     intents: [
         "GUILDS",
-        "GUILD_MESSAGES"
+        "GUILD_MESSAGES",
+        "GUILD_MEMBERS"
     ]
 })
 
@@ -23,5 +24,12 @@ client.on("messageCreate", (message) => {
         message.reply("Laffey Halo!")
     }
 } )
+
+const welcomeChannelId = "927593965618876476"
+
+client.on("guildMemberAdd", (member) => {
+    
+    member.guild.channels.cache.get(welcomeChannelId).send(`Welcome <@${member.id}> to the server!`)
+})
 
 client.login(process.env.TOKEN)
